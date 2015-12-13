@@ -1385,17 +1385,13 @@ class MatterController extends Zend_Controller_Action {
 	/**
 	 * ban an user
 	**/
-	public function banUserAction()
-	  {
+	public function banUserAction() {
 	    $this->_helper->layout->disableLayout();
 	    $this->_helper->viewRenderer->setNoRender();
 	    if($this->getRequest()->isPost()){
 	        $actor_id = $this->_getParam('aid');
 	        $matterModel = new Application_Model_Matter();
 	        $result = $matterModel->banUser($actor_id);
-	        $actorInfo = $matterModel->getActorInfo($actor_id);
-	        $userModel = new Application_Model_User();
-	        $result = $userModel->banLogUser($actorInfo['login']);
 	    }
 	  }
 
