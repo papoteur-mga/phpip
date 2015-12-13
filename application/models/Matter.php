@@ -2159,11 +2159,11 @@ from event where matter_id=" . $matter_ID . " and code='PRI';";
 	  {
 	      if(!$actor_id)
 	        return;
-	    $this->setDbTable('Application_Model_DbTable_Actor');
-	    $dbSelect = $this->_dbTable->getAdapter()->select();
+	      $this->setDbTable('Application_Model_DbTable_Actor');
+	      $dbSelect = $this->_dbTable->getAdapter()->select();
     	
 	      $selectQuery = $dbSelect->from(array('u'=>'actor'))
-	        						->where('u.id = ?', $actor_id);
+	        				->where('u.id = ?', $actor_id);
 	      $row = $this->_dbTable->getAdapter()->fetchRow($selectQuery);
 	      $login = $row['login'];
 	      $config = Zend_Registry::get('config');
@@ -2177,7 +2177,7 @@ from event where matter_id=" . $matter_ID . " and code='PRI';";
 	      }
 	      catch(Exception $e)
 	      {
-	        return 'Echec de la connexion à la base de données '.$e;
+	        return 'Access denied';
 	      }
 	      try {
 	        $sql1 = "DROP USER '".$login."'@'%'";
@@ -2185,7 +2185,7 @@ from event where matter_id=" . $matter_ID . " and code='PRI';";
 	      }
 	      catch(Exception $e)
 	      {
-	        return "Echec de la suppression : ".$e->getMessage();
+	        return "Unable to delete the user from mysql.";
 	      }
 	      $data['ipuser']=0;
 	      $this->getDbTable('Application_Model_DbTable_Actor')->update($data, array('ID = ?' => $actor_id));
